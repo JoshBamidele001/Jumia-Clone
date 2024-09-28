@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/87df78beab.js" crossorigin="anonymous"></script>
+</head>
+<style>
+
+#broadContainer{
+    /* width: 80%; */
+    height: 100vh;
+    margin: auto;
+    background-color: #f1f1f2;
+    border: 0.5px solid black;
+    display: flex;
+    justify-content: space-between;
+}
+
+    #dispLeft_ofcart{
+        width: 70%;
+        height: 38%;
+        padding: 2%;
+        background-color: white;
+    }
+
+    #oneProductImgContainer{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: top;
+        justify-content: center;
+    }
+    #productscale, #down_remove{
+        padding-top: 3%;
+        display: flex;
+        align-items: normal;
+        justify-content: space-between;
+    }
+
+    #inner_productscale{
+        width: 40%;
+        display: flex;
+        align-items: normal;
+        justify-content: space-around;
+        line-height: 10px ;
+    }
+
+    #inner_productscale img{
+        width: 30%;
+        height: 100%;
+    }
+
+
+            @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
+        [class*="col-10"] {
+            width: 100%;
+        }
+        }
+</style>
+<body>
+    <div id="wrap">
+
+        <div id="topmostRegion" class="col-10">
+            <div id="jumia_gif_img">
+                <img src="Resources/Choplife-brands-top-strip.gif" alt="">
+            </div>
+        </div>
+
+        <div id="logo_container">
+                <div id="see_div">
+                    <img src="Resources/svg_.svg" alt="">
+                    <span>Sell on Jumia</span>
+                </div>
+                <div id="jumia_logo">
+                    <img id="jumiaLogo" src="Resources/removed jumia logio.png" alt="">
+                    <img id="payLogo" src="Resources/JUMIA PAY logo.png" alt="">
+                    <img id="logisticLogo" src="Resources/logistic logo.png" alt="">
+                </div>
+        </div>
+
+        <div id="Search_container" class="col-10">
+            <div id="gap_container">
+                <div id="jumia_on_white">
+                    <img src="Resources/Jumia-Logo-500x281.png" alt="">
+                </div>
+                
+                <div id="search_div">
+                    <div id="input-fielddiv">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input class="input-fiejld w-100" type="text" placeholder="Search Products, brands,  and Categories">   
+                    </div>
+                    
+                    <button>Search</button>
+                    <div id="acc_div">
+                        <i class="fa-regular fa-user"></i>
+                        <span>Account</span>
+                        <img src="Resources/arrow down.svg" alt="">
+                    </div>
+                    <div id="help_div">
+                        <i class="fa-sharp fa-regular fa-circle-question"></i>
+                        <span>Help</span>
+                        <img src="Resources/arrow down.svg" alt="">
+                    </div>
+                    <div id="cart_div">
+                      <div id="cart_div_show">
+                              1
+                      </div>
+                        <span id="cartOwn"> <i class="fa-sharp fa-solid fa-cart-shopping"></i> Cart</span>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+
+
+            
+                <div id="broadContainer" class="col-10">
+                    <div id="oneProductImgContainer">
+                        <div id="dispLeft_ofcart">
+                           
+                            
+                            <h3> Cart </h3>
+                            <hr>
+
+                            <div id="displayOneproduct">
+
+                            </div>
+                        </div>
+
+                        <div id="rightAddress">
+
+                        </div>
+
+
+                    </div>
+                    
+                   
+                </div>
+            
+
+    </div>
+</body>
+
+<script>
+
+        let todoId = localStorage.getItem("todoid");
+            console.log(todoId);
+            let allProducts =[]
+
+            function dispOne(){
+                fetch (`https://dummyjson.com/products/${todoId}`).then((data)=>data.json())
+                .then((res)=>{
+                    console.log(res);
+                    allProducts.push
+                    console.log(allProducts);
+                    
+                    displayOneproduct.innerHTML += 
+                    `
+                        <div class = "my-1">
+                            <div id="productscale">
+                                <div id="inner_productscale">
+                                    <img src="${res.images[0]}" />
+                                    <div> 
+                                        <h5>${res.title}</h5>
+                                        <p><small>In Stock</small><p>
+                                        <h6>Jumia Express </h6>      
+                                    </div>                
+                                
+                                </div>
+                                <div>
+                                    <h4>$${res.price}</h4> 
+                                </div>
+                               
+                            </div>
+
+                            <div id= "down_remove">
+                                <button class = "btn btn-danger"><i class="fa-solid fa-trash"></i> REMOVE</button>
+                                <div>
+                                    <button onclick = "SubtractNum()" class = "btn btn-danger" > - </button> <span id = "number"> 1 </span> <button onclick = "AddNum()" class = "btn btn-danger"> + </button>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    
+                               
+                     `
+
+                     rightAddress.innerHTML = 
+                     `
+                     <div>
+                                <h3>Cart Summary</h3>
+                                <hr>
+                                <h5>Subtotal: $${res.price}</h5> 
+                                <hr> 
+                                <button class = "btn btn-danger form-control" onclick = "checkout_function()">CheckOut</button>
+                            </div 
+                            `
+
+                    
+                })
+            }
+
+            // function pushitems(id){
+            //     fetch (`https://dummyjson.com/products/${todoId}`).then((data)=>data.json())
+            //     .then((res)=>{
+               
+            //     allProducts.push()
+            //     localStorage.setItem("todo", JSON.stringify(allProducts));
+            
+            // })
+            // }
+
+            
+
+            dispOne()
+
+            function checkout_function(){
+                console.log("jklknbv");
+                
+                window.location.href = "https://jumia-clone-signup.web.app"
+            }
+
+</script>
+</html>
+
+  

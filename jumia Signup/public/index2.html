@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+</head>
+<style>
+    img, #img_top{
+        width: 30%;
+        margin: auto;
+    }
+
+
+
+
+        @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
+        [class*="col-5"] {
+            width: 100%;
+        }
+        }
+</style>
+<body>
+    <div class="wrap">
+        <div class="mx-auto container p-5">
+            <div class="row d-flex align-items-">
+                <form action="">
+                    <div class="col-5 bg mx-auto p-2">
+                        <img class="w-25 d-flex align-items-end"  src="../resources/myjumia-top-logo.png" alt="myjumia-top-logo">
+                        <h4 class="text-center ">Welcome to Jumia</h4>
+                        <p class="p-3 text-center">Type your e-mail or phone number to log in or create a Jumia account.</p>
+                        <input type="text" class="form-control m-2 p-3" placeholder="Email or Phone Number" id="email" name="email">
+                        <input type="text" class="form-control m-2 p-3" placeholder="Password" id="password" name="password">
+                        <button type="button" class="form-control p-3 my-3" style="background-color:#f68b1e;" onclick="signUpUsers()">Continue</button>
+                        <p class="text-center">By continuing you agree to Jumia’s</p>
+                        <a href="#"><p class="text-center">Terms and Conditions </p></a>
+                        <hr>
+                        <button class="form-control p-3 my-3" style="background-color:transparent; border: 1px solid #f68b1e;">Login with Keypass</button>
+                        <button class="form-control p-3 my-5 text-white" style="background-color: blue">Login with Keypass</button>
+                        <p class="p-3 text-center">For further support, you may visit the Help Center or contact our customer service team.</p>
+                        <img src="../resources/myjumia-bottom-logo.png" alt="">
+                    </div>
+            </form>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+
+<script>
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+            apiKey: "AIzaSyANrj9zbZ6K-EWEtinOG-L8Bd9w-hQolas",
+            authDomain: "jumia-clone-signup.firebaseapp.com",
+            projectId: "jumia-clone-signup",
+            storageBucket: "jumia-clone-signup.appspot.com",
+            messagingSenderId: "732967544613",
+            appId: "1:732967544613:web:352950a9aeb9cc2ac39ccc"
+            };
+
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+
+</script>
+
+<script>
+
+let email = document.getElementById("email");
+let password = document.getElementById("password");
+
+  function signUpUsers(){
+                firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
+                .then((userCredential) => {
+                // Signed in 
+                var user = userCredential.user;
+                console.log(user);
+                alert ("Registration Successful")
+                window.location.href= "signin.html"
+                // ...
+                })
+                .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                alert("Something went wrong")
+                // ..
+                });
+            }
+
+</script>
+
+
+</html>

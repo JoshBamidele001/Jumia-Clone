@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/87df78beab.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+
+</head>
+<style>
+
+    #cart_div_show{
+        position: absolute;
+        background-color: #f68b1e;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        top: 10px;
+        display: none;
+    }
+
+</style>
+<body>
+    <div id="wrap">
+                <div id="topmostRegion">
+                  <div id="jumia_gif_img">
+                      <img src="../ResourcesM/Choplife-brands-top-strip.gif" alt="">
+                  </div>
+              </div>
+
+              <div id="logo_container">
+                  <div id="see_div">
+                      <img src="../ResourcesM/svg_.svg" alt="">
+                      <span>Sell on Jumia</span>
+                  </div>
+                  <div id="jumia_logo">
+                      <img id="jumiaLogo" src="../ResourcesM/removed jumia logio.png" alt="">
+                      <img id="payLogo" src="../ResourcesM/JUMIA PAY logo.png" alt="">
+                      <img id="logisticLogo" src="../ResourcesM/logistic logo.png" alt="">
+                  </div>
+              </div>
+
+              <div id="Search_container">
+                  <div id="gap_container">
+                      <div id="jumia_on_white">
+                          <img src="../ResourcesM/Jumia-Logo-500x281.png" alt="">
+                      </div>
+
+                      <div id="search_div">
+                          <div id="input-fielddiv">
+                              <i class="fa-solid fa-magnifying-glass"></i>
+                              <input class="input-field" type="text" placeholder="Search Products, brands,  and Categories">   
+                          </div>
+                          
+                          <button>Search</button>
+                          <div id="acc_div">
+                              <i class="fa-regular fa-user"></i>
+                              <span>Account</span>
+                              <img src="../ResourcesM/arrow down.svg" alt="">
+                          </div>
+                          <div id="help_div">
+                              <i class="fa-sharp fa-regular fa-circle-question"></i>
+                              <span>Help</span>
+                              <img src="../ResourcesM/arrow down.svg" alt="">
+                          </div>
+                          <div id="cart_div">
+                            <div id="cart_div_show">
+                                    1
+                            </div>
+                            <div id="showCart">
+                                
+                            </div>
+                              
+                          </div>
+                        
+                      </div>
+                  </div>
+              </div>
+
+              <div class="container">
+                <div class="row">
+                    <div class="col-10 bg-white">
+                        <div id="skincareCategories">
+                            <h3 class="p-1">Skincare</h3>   
+                        </div>
+                
+                        <div id="skincare_body" class="col-10">
+    
+                        </div>
+
+                    </div>
+
+                </div>
+
+              </div>
+                   
+                
+
+             
+    </div>
+
+
+
+
+
+
+
+  <script>
+
+let todoId = localStorage.getItem("todoId");
+    console.log(todoId);
+    let allProducts = []
+    let products = [];
+    let phones_body = document.getElementById("phones_body");
+
+    function signupprofile(){
+        window.location.href = "login.html"
+    }
+
+    function fetchAllProducts() {
+        fetch('https://dummyjson.com/products').then((data) => data.json())
+            .then((res) => {
+                console.log(res.products);
+                allProducts = res.products;
+                localStorage.setItem("allProd", JSON.stringify(allProducts))
+            })
+    }
+
+    fetchAllProducts()
+
+
+    function dispAllLaptops() {
+        products = JSON.parse(localStorage.getItem("allProd"))
+        console.log(products.id);
+        let lappyProducts = products.slice(5,10)
+        lappyProducts.forEach(element => {
+            laptop_body.innerHTML += `
+                <div id= "phpnesBody" onclick = "oneProductDisplay(${element.id})" class = "col-8">
+                    <img src="${element.images[0]}" />  
+                    <h6>${element.title}</h6>  
+                    <span>$${element.price}</span> 
+                </div>
+            `
+        });
+    }
+    dispAllLaptops()
+
+    function oneProductDisplay(id){
+        console.log("jklknbv");
+        localStorage.setItem("todoid", id)
+        window.location.href = "oneProduct.html"
+    }
+    
+          function addToCartFunction(){
+            document.getElementById("addToCart").style.display = "none"
+            showQuanitity.innerHTML = `<button onclick = "SubtractNum()"> - </button> <span id = "number"> 1 </span> <button onclick = "AddNum()"> + </button>`
+            document.getElementById("cart_div_show").style.display = "block"
+            document.getElementById("cartOwn").style.Color = "#f68b1e"
+          }
+
+          let num = 1
+          function AddNum(){
+            if (num == 30){
+                    return;
+                } else{
+                    num ++
+                    number.innerHTML = num;
+                }
+    
+          }
+
+          function SubtractNum(){
+                if (num == 1){
+                    document.getElementById("addToCart").style.display = "block"
+                    document.getElementById("showQuanitity").style.display = "none"
+                    window.location.href = "oneProduct.html"
+
+                } else{
+                    num --
+                    number.innerHTML = num;
+                }
+            }
+
+            function addToCartPage(id){
+                console.log("jklknbv");
+                localStorage.setItem("todoid", id)
+                window.location.href = "cart.html"
+            }
+
+            function cartPage(id){
+                console.log("jklknbv");
+                localStorage.setItem("todoid", id)
+                window.location.href = "cart.html"
+            }
+
+  </script>
+</body>
+</html>   

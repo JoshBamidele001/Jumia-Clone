@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/87df78beab.js" crossorigin="anonymous"></script>
+  
+
+</head>
+<style>
+    #cart_div_show{
+        position: absolute;
+        background-color: #f68b1e;
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        top: 10px;
+        display: none;
+    }
+
+</style>
+<body>
+    <div id="wrap">
+                <div id="topmostRegion">
+                  <div id="jumia_gif_img">
+                      <img src="../ResourcesM/Choplife-brands-top-strip.gif" alt="">
+                  </div>
+              </div>
+
+              <div id="logo_container">
+                  <div id="see_div">
+                      <img src="../ResourcesM/svg_.svg" alt="">
+                      <span>Sell on Jumia</span>
+                  </div>
+                  <div id="jumia_logo">
+                      <img id="jumiaLogo" src="../ResourcesM/removed jumia logio.png" alt="">
+                      <img id="payLogo" src="../ResourcesM/JUMIA PAY logo.png" alt="">
+                      <img id="logisticLogo" src="../ResourcesM/logistic logo.png" alt="">
+                  </div>
+              </div>
+
+              <div id="Search_container">
+                  <div id="gap_container">
+                      <div id="jumia_on_white">
+                          <img src="../ResourcesM/Jumia-Logo-500x281.png" alt="">
+                      </div>
+
+                      <div id="search_div">
+                          <div id="input-fielddiv">
+                              <i class="fa-solid fa-magnifying-glass"></i>
+                              <input class="input-field" type="text" placeholder="Search Products, brands,  and Categories">   
+                          </div>
+                          
+                          <button>Search</button>
+                          <div id="acc_div">
+                              <i class="fa-regular fa-user"></i>
+                              <span>Account</span>
+                              <img src="../ResourcesM/arrow down.svg" alt="">
+                          </div>
+                          <div id="help_div">
+                              <i class="fa-sharp fa-regular fa-circle-question"></i>
+                              <span>Help</span>
+                              <img src="../ResourcesM/arrow down.svg" alt="">
+                          </div>
+                          <div id="cart_div">
+                            <div id="cart_div_show">
+                                    1
+                            </div>
+                            <div id="showCart">
+                                
+                            </div>
+                              
+                          </div>
+                        
+                      </div>
+                  </div>
+              </div>
+
+              <div id="broadContainer">
+                <div id="dispOneProd">
+
+                </div>
+                <div id="rightAddress">
+                    <div id="addressDiv">
+                        <h4>DELIVERY & RETURNS</h4>
+                        <img src="../ResourcesM/Jumia-Logo-500x281.png" alt="">
+                        <p><span>Free delivery on thousands of products in Lagos, Ibadan & Abuja Details</span></p>
+                        <br><h4>Choose Location</h4>
+                        <select name="States" id="states">
+                          <option value="Lagos">Lagos</option>
+                          <option value="Oyo">Oyo</option>
+                          <option value="Osun">Osun</option>
+                          <option value="Ogun">Ogun</option>
+                        </select>
+                    </div>
+                    
+                    <div id="shortAddToCart">
+
+
+                    </div>
+                 
+                  </div>
+              </div>
+             
+    </div>
+
+
+
+
+
+
+
+  <script>
+
+      let todoId = localStorage.getItem("todoid");
+          console.log(todoId);
+          let allProducts =[]
+
+
+          let showCart = document.getElementById("showCart")
+
+      function dispOne(){
+
+              fetch (`https://dummyjson.com/products/${todoId}`).then((data)=>data.json())
+              .then((res)=>{
+                  console.log(res);
+                  dispOneProd.innerHTML = `
+                    <div>
+                        <div id = "oneProductBody">
+                            <div id = "oneProductImgContainer">
+                              <img src="${res.images[0]}" />
+                              <hr>
+                              <h5>SHARE THIS PRODUCT</h5>
+                              <div></div> 
+                            </div>
+
+                            <div> 
+                              <p>Official Store</P> 
+                              <h3>${res.title}</h3> 
+                              <p>BRAND: ${res.brand}</p> 
+                              <small>Categories: ${res.category}</small> 
+                              <hr><br>
+                              <h4>$${res.price}</h4> 
+                              <h6> discount : ${res.discountPercentage}%</h6>
+                              <small>${res.stock} in Stock </small>
+                              <p> + shipping from $1.66 </p>
+                              <button id = "addToCart" onclick = "addToCartFunction()"> Add to Cart </button>
+                              <div id = "showQuanitity"> </div>
+                              <br> <br>
+                              <p> PROMOTION </p>
+                              <small> Need extra money? Loan up to N500,000 on the JumiaPay Android app.</small><br>
+                              <small> Enjoy cheaper shipping fees when you select a PickUp Station at checkout.</small><br>
+                              <small> Transfer up to N200,000 to any bank in Nigeria for FREE! </small>
+                            </div>
+                          
+                        </div>
+
+                      
+
+                        <div id = "oneProductdetail">
+                              <h3> Product Details <h3>
+                              <hr>
+                              </br>
+                              <img src="${res.images[2]}" />
+                              <p> ${res.description}</p>
+                              <small> ${res.description}</small>
+                            
+
+                        </div>
+
+                    </div>    
+            `
+
+                  shortAddToCart.innerHTML = `
+                    <div id = "smallCartBox">
+                        <div id = "smallImages">
+                          <img src="${res.images[0]}" />
+                          <h3>${res.title}</h3> 
+                        </div>
+                        <button onclick = "addToCartPage(${res.id})"> Add to Cart </button>
+                    </div>
+                    ` 
+                    
+                    showCart.innerHTML = ` <div id= "showCartsub" onclick = "cartPage(${res.id})">
+                                <span id="cartOwn"> <i class="fa-sharp fa-solid fa-cart-shopping"></i> Cart</span>
+                            </div>
+                    `
+
+             })
+          }
+
+          dispOne()
+
+          function addToCartFunction(){
+            document.getElementById("addToCart").style.display = "none"
+            showQuanitity.innerHTML = `<button onclick = "SubtractNum()"> - </button> <span id = "number"> 1 </span> <button onclick = "AddNum()"> + </button>`
+            document.getElementById("cart_div_show").style.display = "block"
+            document.getElementById("cartOwn").style.Color = "#f68b1e"
+          }
+
+          let num = 1
+          function AddNum(){
+            if (num == 30){
+                    return;
+                } else{
+                    num ++
+                    number.innerHTML = num;
+                }
+    
+          }
+
+          function SubtractNum(){
+                if (num == 1){
+                    document.getElementById("addToCart").style.display = "block"
+                    document.getElementById("showQuanitity").style.display = "none"
+                    window.location.href = "oneProduct.html"
+
+                } else{
+                    num --
+                    number.innerHTML = num;
+                }
+            }
+
+            function addToCartPage(id){
+                console.log("jklknbv");
+                localStorage.setItem("todoid", id)
+                window.location.href = "cart.html"
+            }
+
+            function cartPage(id){
+                console.log("jklknbv");
+                localStorage.setItem("todoid", id)
+                window.location.href = "cart.html"
+            }
+
+  </script>
+</body>
+</html>   
